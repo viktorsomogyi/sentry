@@ -41,7 +41,6 @@ import static org.apache.sentry.service.thrift.ServiceConstants.ServerConfig.SEC
  */
 public class SentryCli {
     private static final String LOG4J_CONF = "log4jConf";
-    private final String[] args;
     private Options options = new Options();
     private CommandLine cmd;
 
@@ -83,7 +82,6 @@ public class SentryCli {
      * @param args command-line arguments
      */
     private SentryCli(String[] args) {
-        this.args = args;
         options.addOption("h", "help", false, "show help");
         // file path of sentry-site
         options.addOption("U", userOpt, true, "auth user");
@@ -93,7 +91,7 @@ public class SentryCli {
         CommandLineParser parser = new GnuParser();
         try {
             this.cmd = parser.parse(options, args);
-        } catch (ParseException e) {
+        } catch (ParseException ignored) {
             help();
         }
         if (cmd.hasOption("h")) {

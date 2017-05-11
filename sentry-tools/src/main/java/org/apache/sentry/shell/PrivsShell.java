@@ -30,10 +30,15 @@ public class PrivsShell implements ShellDependent {
     private final ShellUtil tools;
     private Shell shell;
 
+    public Shell getShell() {
+        return shell;
+    }
+
     @Command(description = "Grant privilege to role")
     public void grant(
             @Param(name = "roleName")
             String roleName,
+
             @Param(name = "privilege",
                     description = "privilege string, e.g. server=s1->db=foo")
             String privilege) {
