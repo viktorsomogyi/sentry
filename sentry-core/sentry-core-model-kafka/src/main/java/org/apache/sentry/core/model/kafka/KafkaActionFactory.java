@@ -46,12 +46,12 @@ public class KafkaActionFactory extends BitFieldActionFactory {
    * Types of actions supported by Kafka.
    */
   public enum KafkaActionType {
-    READ(KafkaActionConstant.READ, 1),
-    WRITE(KafkaActionConstant.WRITE, 2),
     CREATE(KafkaActionConstant.CREATE, 4),
     DELETE(KafkaActionConstant.DELETE, 8),
     ALTER(KafkaActionConstant.ALTER, 16),
     DESCRIBE(KafkaActionConstant.DESCRIBE, 32),
+    READ(KafkaActionConstant.READ, 1 | DESCRIBE.getCode()),
+    WRITE(KafkaActionConstant.WRITE, 2 | DESCRIBE.getCode()),
     CLUSTERACTION(KafkaActionConstant.CLUSTER_ACTION, 64),
     ALL(KafkaActionConstant.ALL, READ.getCode() | WRITE.getCode() | CREATE.getCode()
         | DELETE.getCode() | ALTER.getCode()| DESCRIBE.getCode() | CLUSTERACTION.getCode());

@@ -55,7 +55,7 @@ public class TestKafkaAction {
     assertFalse(readAction.implies(createAction));
     assertFalse(readAction.implies(deleteAction));
     assertFalse(readAction.implies(alterAction));
-    assertFalse(readAction.implies(describeAction));
+    assertTrue(readAction.implies(describeAction));
     assertFalse(readAction.implies(adminAction));
     assertFalse(readAction.implies(allAction));
 
@@ -64,7 +64,7 @@ public class TestKafkaAction {
     assertFalse(writeAction.implies(createAction));
     assertFalse(writeAction.implies(deleteAction));
     assertFalse(writeAction.implies(alterAction));
-    assertFalse(writeAction.implies(describeAction));
+    assertTrue(writeAction.implies(describeAction));
     assertFalse(writeAction.implies(adminAction));
     assertFalse(writeAction.implies(allAction));
 
@@ -148,9 +148,9 @@ public class TestKafkaAction {
     KafkaAction adminAction = (KafkaAction) factory.getActionByName(KafkaActionConstant.CLUSTER_ACTION);
     KafkaAction allAction = new KafkaAction(KafkaActionConstant.ALL);
 
-    assertEquals(Lists.newArrayList(readAction),
+    assertEquals(Lists.newArrayList(describeAction, readAction),
         factory.getActionsByCode(readAction.getActionCode()));
-    assertEquals(Lists.newArrayList(writeAction),
+    assertEquals(Lists.newArrayList(describeAction, writeAction),
         factory.getActionsByCode(writeAction.getActionCode()));
     assertEquals(Lists.newArrayList(createAction),
         factory.getActionsByCode(createAction.getActionCode()));
@@ -162,8 +162,8 @@ public class TestKafkaAction {
         factory.getActionsByCode(describeAction.getActionCode()));
     assertEquals(Lists.newArrayList(adminAction),
         factory.getActionsByCode(adminAction.getActionCode()));
-    assertEquals(Lists.newArrayList(readAction, writeAction, createAction, deleteAction,
-        alterAction, describeAction, adminAction), factory.getActionsByCode(allAction
+    assertEquals(Lists.newArrayList(createAction, deleteAction,
+        alterAction, describeAction, readAction, writeAction, adminAction), factory.getActionsByCode(allAction
         .getActionCode()));
   }
 
